@@ -18,13 +18,42 @@ class MainActivity : AppCompatActivity() {
         Log.i("edu.daec.iopensopostivo", "IoPP Loading")   //mensaje debug
     }
 
+    var currMessage = 0
+
     fun getRandomMessage(): String{
-        return database[Random.nextInt( 0, database.size -1 )]
+        currMessage = Random.nextInt( 0, database.size -1 )
+        return database[currMessage]
+    }
+
+    fun getNextMessage(): String{
+        currMessage++
+        if(currMessage > database.size -1){
+            currMessage = 0
+        }
+        return database[currMessage]
+    }
+
+    fun getPrevMessage():String{
+        currMessage--
+        if(currMessage < 0){
+            currMessage = database.size -1
+        }
+        return database[currMessage]
+    }
+
+    fun rand(view: View){
+        texto.text = getRandomMessage()
     }
 
     fun next(view: View){
-        texto.text = getRandomMessage()
+        texto.text = getNextMessage()
     }
+
+    fun prev(view: View){
+        texto.text = getPrevMessage()
+    }
+
+
 
     val database = arrayOf("Somos lo que pensamos. Todo lo que somos surge con nuestros pensamientos. Con nuestros pensamientos construimos el mundo.-Buddha.",
         "El pesimista ve dificultad en toda oportunidad. El optimista ve oportunidad en toda dificultad.-Winston Churchill.",
