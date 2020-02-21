@@ -14,8 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         texto.text = "quiero una torta de chilaquiles"
-        Toast.makeText(this, "Io Penso Positivo", Toast.LENGTH_LONG).show()  //mensaja para usuarios
         Log.i("edu.daec.iopensopostivo", "IoPP Loading")   //mensaje debug
+        currMessage = 0
     }
 
     var currMessage = 0
@@ -41,6 +41,25 @@ class MainActivity : AppCompatActivity() {
         return database[currMessage]
     }
 
+    fun getSpecific(): String{
+
+        var goToParsed = 0
+
+        if(!textoInt.text.isNullOrEmpty()) {
+             goToParsed = textoInt.text.toString().toInt()
+            Toast.makeText(this, "Tienes que poner un numero", Toast.LENGTH_LONG).show()
+        }
+
+        if (goToParsed <= database.size && goToParsed >= 0){
+            currMessage = goToParsed
+        }
+        else {
+            Toast.makeText(this, "El numero de mensaje que quieres no existe", Toast.LENGTH_LONG).show()
+        }
+
+        return database[currMessage]
+    }
+
     fun rand(view: View){
         texto.text = getRandomMessage()
     }
@@ -53,7 +72,9 @@ class MainActivity : AppCompatActivity() {
         texto.text = getPrevMessage()
     }
 
-
+    fun goToMessage(view: View){
+        texto.text = getSpecific()
+    }
 
     val database = arrayOf("Somos lo que pensamos. Todo lo que somos surge con nuestros pensamientos. Con nuestros pensamientos construimos el mundo.-Buddha.",
         "El pesimista ve dificultad en toda oportunidad. El optimista ve oportunidad en toda dificultad.-Winston Churchill.",
