@@ -13,9 +13,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        texto.text = "quiero una torta de chilaquiles"
+        texto.text = database[currMessage]
         Log.i("edu.daec.iopensopostivo", "IoPP Loading")   //mensaje debug
-        currMessage = 0
     }
 
     var currMessage = 0
@@ -43,12 +42,13 @@ class MainActivity : AppCompatActivity() {
 
     fun getSpecific(): String{
 
-        var goToParsed = 0
+        var goToParsed = currMessage
 
         if(!textoInt.text.isNullOrEmpty()) {
-             goToParsed = textoInt.text.toString().toInt()
-            Toast.makeText(this, "Tienes que poner un numero", Toast.LENGTH_LONG).show()
+            goToParsed = textoInt.text.toString().toInt()
+
         }
+        else Toast.makeText(this, "Tienes que poner un numero", Toast.LENGTH_LONG).show()
 
         if (goToParsed <= database.size && goToParsed >= 0){
             currMessage = goToParsed
